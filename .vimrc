@@ -62,13 +62,16 @@ noremap <Left> <NOP>
 noremap <Right> <NOP>
 
 call minpac#add('tpope/vim-unimpaired')
-call minpac#add('tpope/vim-scriptease', {'type': 'opt'})
+"call minpac#add('tpope/vim-scriptease', {'type': 'opt'})
 call minpac#add('scrooloose/nerdtree')
 call minpac#add('Xuyuanp/nerdtree-git-plugin')
 call minpac#add('scrooloose/nerdcommenter')
 call minpac#add('vim-scripts/JSON.vim')
 call minpac#add('pangloss/vim-javascript')
+"call minpac#add('chemzqm/vim-jsx-improve')
 call minpac#add('mxw/vim-jsx')
+call minpac#add('junegunn/fzf')
+"call minpac#add('andymass/vim-matchup')
 
 " mappings
 map <C-n> :NERDTreeToggle<CR>
@@ -82,6 +85,9 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 map <F10> :NERDTreeToggle<CR>
 " Current file in nerdtree
 map <F9> :NERDTreeFind<CR>
+
+" javascript
+let g:javascript_plugin_jsdoc = 1
 
 augroup configgroup
   autocmd!
@@ -108,7 +114,7 @@ augroup configgroup
   autocmd BufEnter *.sh setlocal shiftwidth=2
   autocmd BufEnter *.sh setlocal softtabstop=2
   autocmd Filetype html setlocal ts=2 sts=2 sw=2
-  autocmd Filetype javascript setlocal ts=4 sts=4 sw=4
+  autocmd Filetype javascript setlocal ts=2 sts=2 sw=2
 augroup END
 
 
