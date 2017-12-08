@@ -66,6 +66,12 @@ call minpac#add('tpope/vim-unimpaired')
 call minpac#add('scrooloose/nerdtree')
 call minpac#add('Xuyuanp/nerdtree-git-plugin')
 call minpac#add('scrooloose/nerdcommenter')
+call minpac#add('vim-syntastic/syntastic')
+call minpac#add('tpope/vim-surround')
+call minpac#add('austintaylor/vim-indentobject')
+call minpac#add('tpope/vim-rails')
+call minpac#add('kana/vim-textobj-user')
+call minpac#add('nelstrom/vim-textobj-rubyblock')
 call minpac#add('vim-scripts/JSON.vim')
 call minpac#add('pangloss/vim-javascript')
 "call minpac#add('chemzqm/vim-jsx-improve')
@@ -85,6 +91,9 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 map <F10> :NERDTreeToggle<CR>
 " Current file in nerdtree
 map <F9> :NERDTreeFind<CR>
+
+" fuzzy find
+nnoremap <C-p> :<C-u>FZF<CR>
 
 " javascript
 let g:javascript_plugin_jsdoc = 1
