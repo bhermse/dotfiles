@@ -78,6 +78,8 @@ call minpac#add('pangloss/vim-javascript')
 "call minpac#add('chemzqm/vim-jsx-improve')
 call minpac#add('mxw/vim-jsx')
 call minpac#add('junegunn/fzf')
+call minpac#add('mhinz/vim-grepper')
+call minpac#add('BurntSushi/ripgrep')
 "call minpac#add('andymass/vim-matchup')
 
 " mappings
@@ -95,6 +97,10 @@ map <F9> :NERDTreeFind<CR>
 
 " fuzzy find
 nnoremap <C-p> :<C-u>FZF<CR>
+" grep
+:set grepprg=rg\ -H\ --no-heading\ --vimgrep
+:set grepformat=$f:$l:%c:%m
+nnoremap <Leader>g :Grepper -tool rg<CR>
 
 " javascript
 let g:javascript_plugin_jsdoc = 1
