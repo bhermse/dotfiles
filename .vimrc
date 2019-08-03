@@ -93,6 +93,7 @@ call minpac#add('junegunn/fzf')
 call minpac#add('mhinz/vim-grepper')
 call minpac#add('BurntSushi/ripgrep')
 call minpac#add('vim-airline/vim-airline')
+"call minpac#add('StanAngeloff/php.vim')
 "call minpac#add('andymass/vim-matchup')
 
 " mappings
