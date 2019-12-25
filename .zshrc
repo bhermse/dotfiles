@@ -79,11 +79,11 @@ source $ZSH/oh-my-zsh.sh
 # export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
+if [[ -n $SSH_CONNECTION ]]; then
+  export EDITOR='nvim'
+else
+  export EDITOR='nvim'
+fi
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -102,6 +102,17 @@ source $ZSH/oh-my-zsh.sh
 
 # MINE #
 export PATH=/home/bryan/.local/bin:$PATH
+export VISUAL=vim
+export EDITOR="$VISUAL"
+export GIT_EDITOR=nvim
+
+if [ -f ~/.bash_aliases ]; then
+. ~/.bash_aliases
+fi
+
+# GO
+export GOROOT=/usr/lib/go-1.12
+export PATH=$PATH:$GOROOT/bin
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
@@ -118,3 +129,5 @@ fi
 unset __conda_setup
 # <<< conda initialize <<<
 
+# enable fzf
+source /usr/share/doc/fzf/examples/key-bindings.zsh
