@@ -2,3 +2,6 @@ alias venv='python3 -m venv venv && . venv/bin/activate && pip install --upgrade
 alias vim="nvim"
 alias vi="nvim"
 alias oldvim="vim"
+alias t="tmuxinator"
+
+# gam() { "/home/bryan/bin/gam/gam" "$@" ; }
