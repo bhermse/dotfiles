@@ -102,32 +102,28 @@ fi
 
 # MINE #
 export PATH=/home/bryan/.local/bin:$PATH
-export VISUAL=vim
+export VISUAL=nvim
 export EDITOR="$VISUAL"
 export GIT_EDITOR=nvim
+export PROMPT='%{$reset_color%}%{${fg[green]}%}%3~ $(git_prompt_info)%{${fg_bold[$CARETCOLOR]}%}»%{${reset_color}%} '
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+
+# include z search tool
+. ~/opt/z.sh
 
 if [ -f ~/.bash_aliases ]; then
 . ~/.bash_aliases
 fi
 
-# GO
-export GOROOT=/usr/lib/go-1.12
-export PATH=$PATH:$GOROOT/bin
-
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/home/bryan/miniconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/home/bryan/miniconda3/etc/profile.d/conda.sh" ]; then
-        . "/home/bryan/miniconda3/etc/profile.d/conda.sh"
-    else
-        export PATH="/home/bryan/miniconda3/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<
+#[ -z "$TMUX" ] && export TERM=xterm-256color
 
 # enable fzf
 source /usr/share/doc/fzf/examples/key-bindings.zsh
+
+# gam() { "/home/bryan/bin/gam/gam" "$@" ; }
+
+# Initialize pyenv
+if command -v pyenv 1>/dev/null 2>&1; then
+  eval "$(pyenv init -)"
+fi

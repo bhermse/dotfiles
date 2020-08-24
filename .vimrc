@@ -81,7 +81,7 @@ call minpac#add('vim-syntastic/syntastic')
 call minpac#add('tpope/vim-surround')
 call minpac#add('austintaylor/vim-indentobject')
 call minpac#add('tpope/vim-dispatch')
-call minpac#add('tpope/vim-rails')
+"call minpac#add('tpope/vim-rails')
 call minpac#add('tpope/vim-fugitive')
 call minpac#add('tmhedberg/matchit')
 call minpac#add('kana/vim-textobj-user')
@@ -131,10 +131,6 @@ augroup configgroup
   autocmd FileType java setlocal list
   autocmd FileType java setlocal listchars=tab:+\ ,eol:-
   autocmd FileType java setlocal formatprg=par\ -w80\ -T4
-  autocmd FileType php setlocal expandtab
-  autocmd FileType php setlocal list
-  autocmd FileType php setlocal listchars=tab:+\ ,eol:-
-  autocmd FileType php setlocal formatprg=par\ -w80\ -T4
   autocmd FileType ruby setlocal tabstop=2
   autocmd FileType ruby setlocal shiftwidth=2
   autocmd FileType ruby setlocal softtabstop=2

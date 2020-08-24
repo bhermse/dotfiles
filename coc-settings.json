@@ -1,9 +1,28 @@
 {
-  "python.pythonPath":"/home/bryan/miniconda3/bin/python3",
-  "python.jediEnabled":false,
+  "python.pythonPath": "/home/bryan/.pyenv/shims/python3",
+  "python.jediEnabled": false,
   "python.linting.enabled": true,
   "python.linting.pylintEnabled": false,
   "python.linting.flake8Enabled": true,
   "python.formatting.provider": "black",
-  "python.formatting.blackPath": "/home/bryan/miniconda3/bin/black"
+  "python.formatting.blackPath": "/home/bryan/.pyenv/shims/black",
+  "solargraph.completion": true,
+  "solargraph.symbols": true,
+  "solargraph.definitions": true,
+  "coc.preferences.formatOnSaveFiletypes": [
+    "javascript",
+    "typescript",
+    "typescriptreact",
+    "json",
+    "javascriptreact",
+    "typescript.tsx"
+  ],
+  "eslint.filetypes": [
+    "javascript",
+    "typescript",
+    "typescriptreact",
+    "javascriptreact",
+    "typescript.tsx"
+  ],
+  "coc.preferences.diagnostic.virtualText": true
 }

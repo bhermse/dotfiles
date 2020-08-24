@@ -4,25 +4,46 @@ call minpac#init()
 set nocompatible
 let mapleader = ','
 
+set t_Co=256
+highlight Normal ctermbg=NONE
+highlight nonText ctermbg=NONE
+
+set encoding=utf-8
 set backspace=2
 set noswapfile
-set history=50
+set history=1000
 set ruler
 set guifont=Droid_Sans_Mono:h8:cANSI
 set shiftwidth=2
 set softtabstop=2
+set tabstop=2       " number of visual spaces per TAB
 set laststatus=2
+set textwidth=120 " make it obvious where text width is
+set colorcolumn=+1
+" Open new split panes to right and bottom
+set splitbelow
+set splitright
 set autowrite
+:set switchbuf+=usetab,newtab
 colorscheme Tomorrow-Night         " awesome colorscheme elflord pablo
+"colorscheme atom-dark-256         " awesome colorscheme elflord pablo
+"colorscheme deus
+"colorscheme jellybeans
+"colorscheme PaperColor
+"colorscheme nord
+"colorscheme one
+"let g:airline_theme='base16'
+"colorscheme one
+"let g:airline_theme='one'
 syntax enable           " enable syntax processing
 syntax on
-set tabstop=2       " number of visual spaces per TAB
 set shiftround
 set expandtab
 set number              " show line numbers
-set numberwidth=5
+set numberwidth=4
 set showcmd             " show command in bottom bar
 set cursorline          " highlight current line
+set scrolloff=4
 filetype plugin indent on      " load filetype-specific indent files
 set wildmenu            " visual autocomplete for command menu
 set lazyredraw          " redraw only when we need to.
@@ -36,6 +57,8 @@ set foldnestmax=10      " 10 nested fold max
 nnoremap <space> za " space open/closes folds
 set foldmethod=indent   " fold based on indent level
 nnoremap gV `[v`] " highlight last inserted text
+set backupdir=~/.tmp
+set directory=~/.tmp " Don't clutter my dirs up with swp and tmp files
 " toggle gundo
 nnoremap <leader>u :GundoToggle<CR>
 " Always use vertical diffs
@@ -50,6 +73,12 @@ noremap <leader>6 6gt
 noremap <leader>7 7gt
 noremap <leader>8 8gt
 noremap <leader>9 9gt
+
+" move up and down on visual lines (if a line wraps)
+noremap k gk
+noremap j gj
+
+nmap 0 ^
 
 :set smartcase
 :set ignorecase
@@ -81,8 +110,13 @@ call minpac#add('vim-syntastic/syntastic')
 call minpac#add('tpope/vim-surround')
 call minpac#add('austintaylor/vim-indentobject')
 call minpac#add('tpope/vim-dispatch')
-call minpac#add('tpope/vim-rails')
+call minpac#add('christoomey/vim-tmux-navigator')
+"call minpac#add('tpope/vim-rails')
 call minpac#add('tpope/vim-fugitive')
+call minpac#add('tpope/vim-repeat')
+"call minpac#add('tpope/vim-markdown')
+call minpac#add('plasticboy/vim-markdown')
+call minpac#add('vim-pandoc/vim-pandoc-syntax')
 call minpac#add('tmhedberg/matchit')
 call minpac#add('kana/vim-textobj-user')
 call minpac#add('nelstrom/vim-textobj-rubyblock')
@@ -94,11 +128,20 @@ call minpac#add('junegunn/fzf')
 call minpac#add('mhinz/vim-grepper')
 call minpac#add('BurntSushi/ripgrep')
 call minpac#add('vim-airline/vim-airline')
+call minpac#add('sheerun/vim-polyglot')
+call minpac#add('leafgarland/typescript-vim')
+call minpac#add('w0rp/ale')
+call minpac#add('peitalin/vim-jsx-typescript')
+"call minpac#add('vim-airline/vim-airline')
+"call minpac#add('vim-airline/vim-airline-themes')
+"call minpac#add('rakr/vim-one')
 "call minpac#add('StanAngeloff/php.vim')
 "call minpac#add('andymass/vim-matchup')
 
+let g:vim_markdown_conceal = 0
 " mappings
 map <C-n> :NERDTreeToggle<CR>
+let NERDTreeShowHidden=1
 
 " NERDTree settings
 " auto-open nerdtree?
@@ -113,6 +156,9 @@ map <F9> :NERDTreeFind<CR>
 
 " fuzzy find
 nnoremap <C-p> :<C-u>FZF<CR>
+" Tell FZF to use RG - so we can skip .gitignore files even if not using
+" :GitFiles search
+let $FZF_DEFAULT_COMMAND = 'rg --files --hidden'
 " grep
 :set grepprg=rg\ -H\ --no-heading\ --vimgrep
 :set grepformat=$f:$l:%c:%m
@@ -138,7 +184,6 @@ augroup configgroup
   autocmd FileType ruby setlocal shiftwidth=2
   autocmd FileType ruby setlocal softtabstop=2
   autocmd FileType ruby setlocal commentstring=#\ %s
-  autocmd FileType python setlocal commentstring=#\ %s
   autocmd BufEnter *.cls setlocal filetype=java
   autocmd BufEnter *.zsh-theme setlocal filetype=zsh
   autocmd BufEnter Makefile setlocal noexpandtab
@@ -166,6 +211,10 @@ augroup vimrcEx
   autocmd BufRead,BufNewFile Appraisals set filetype=ruby
   autocmd BufRead,BufNewFile *.md set filetype=markdown
   autocmd BufRead,BufNewFile .{jscs,jshint,eslint}rc set
+
+  augroup pandoc_syntax
+    au! BufNewFile,BufFilePre,BufRead *.md set filetype=markdown.pandoc
+  augroup END
   "filetype=json
 augroup END
 
@@ -180,7 +229,10 @@ let g:coc_global_extensions = [
       \ 'coc-emoji',
       \ 'coc-tsserver',
       \ 'coc-ultisnips',
-      \ 'coc-phpls'
+      \ 'coc-phpls',
+      \ 'coc-solargraph',
+      \ 'coc-emmet',
+      \ 'coc-prettier',
       \ ]
 
 function! s:coc_cb(hooktype, name) abort
@@ -196,23 +248,17 @@ call minpac#add('neoclide/coc.nvim', {'do': function('s:coc_cb')})
 " coc keybindings and such
 " if hidden is not set, TextEdit might fail.
 set hidden
-
 " Some servers have issues with backup files, see #649
 set nobackup
 set nowritebackup
-
 " Better display for messages
 set cmdheight=2
-
 " You will have bad experience for diagnostic messages when it's default 4000.
 set updatetime=300
-
 " don't give |ins-completion-menu| messages.
 set shortmess+=c
-
 " always show signcolumns
 set signcolumn=yes
-
 " Use tab for trigger completion with characters ahead and navigate.
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
 inoremap <silent><expr> <TAB>
@@ -324,10 +370,6 @@ nnoremap <silent> <space>j  :<C-u>CocNext<CR>
 nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list
 nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
-
-" Python
-"python.jediEnabled": false
-
 " }}}
 
 " Treat <li> and <p> tags like the block tags they are
@@ -339,7 +381,38 @@ syntax on
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
-nnoremap <C-H> <C-W><C-H><Paste>
+nnoremap <C-H> <C-W><C-H>
+
+" Split edit your vimrc. Type space, v, r in sequence to trigger
+nmap <leader>vr :sp $MYVIMRC<cr>
+" Source (reload) your vimrc. Type space, s, o in sequence to trigger
+nmap <leader>so :source $MYVIMRC<cr>
+
+" Leader shortcuts
+" open my notes in a new tab
+map <Leader>nt :tabedit ~/Nextcloud/Notes<cr>
+" Edit another file in the same directory as the current file
+" uses expression to extract path from current file's path
+map <Leader>e :e <C-R>=escape(expand("%:p:h"),' ') . '/'<CR>
+map <Leader>s :split <C-R>=escape(expand("%:p:h"), ' ') . '/'<CR>
+map <Leader>v :vnew <C-R>=escape(expand("%:p:h"), ' ') . '/'<CR>
+" Merge a tab into a split in the previous window
+function! MergeTabs()
+  if tabpagenr() == 1
+    return
+  endif
+  let bufferName = bufname("%")
+  if tabpagenr("$") == tabpagenr()
+    close!
+  else
+    close!
+    tabprev
+  endif
+  split
+  execute "buffer " . bufferName
+endfunction
+
+nmap <C-W>u :call MergeTabs()<CR>
 
 " Enable fzf
 source /usr/share/doc/fzf/examples/fzf.vim
