@@ -132,6 +132,10 @@ call minpac#add('sheerun/vim-polyglot')
 call minpac#add('leafgarland/typescript-vim')
 call minpac#add('w0rp/ale')
 call minpac#add('peitalin/vim-jsx-typescript')
+" snippets..
+"call minpac#add('SirVer/ultisnips')
+"call minpac#add('honza/vim-snippets')
+"
 "call minpac#add('vim-airline/vim-airline')
 "call minpac#add('vim-airline/vim-airline-themes')
 "call minpac#add('rakr/vim-one')
@@ -219,6 +223,7 @@ augroup vimrcEx
 augroup END
 
 " Autocompletion {{{
+"\ 'coc-ultisnips',
 let g:coc_global_extensions = [
       \ 'coc-css',
       \ 'coc-rls',
@@ -228,7 +233,6 @@ let g:coc_global_extensions = [
       \ 'coc-yaml',
       \ 'coc-emoji',
       \ 'coc-tsserver',
-      \ 'coc-ultisnips',
       \ 'coc-phpls',
       \ 'coc-solargraph',
       \ 'coc-emmet',
@@ -243,7 +247,8 @@ endfunction
 
 call minpac#add('Shougo/neco-vim')
 call minpac#add('neoclide/coc-neco')
-call minpac#add('neoclide/coc.nvim', {'do': function('s:coc_cb')})
+"call minpac#add('neoclide/coc.nvim', {'do': function('s:coc_cb')})
+call minpac#add('neoclide/coc.nvim', {'do': './install.sh'})
 
 " coc keybindings and such
 " if hidden is not set, TextEdit might fail.
