@@ -127,3 +127,15 @@ source /usr/share/doc/fzf/examples/key-bindings.zsh
 if command -v pyenv 1>/dev/null 2>&1; then
   eval "$(pyenv init -)"
 fi
+
+# Enable pipx autocompletion
+if command -v pipx 1>/dev/null 2>&1; then
+  eval "$(register-python-argcomplete pipx)"
+fi
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
+source ~/.rvm/scripts/rvm
+
+# add global npm commands
+export PATH=$PATH:$(npm get prefix)/bin
