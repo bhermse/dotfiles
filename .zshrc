@@ -139,3 +139,5 @@ source ~/.rvm/scripts/rvm
 
 # add global npm commands
 export PATH=$PATH:$(npm get prefix)/bin
+
+function gam() { "/home/bryan/bin/gam/gam" "$@" ; }

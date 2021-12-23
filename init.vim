@@ -95,10 +95,10 @@ set list listchars=tab:»·,trail:·,nbsp:·
 set nojoinspaces
 
 " Habit keys
-noremap <Up> <NOP>
-noremap <Down> <NOP>
-noremap <Left> <NOP>
-noremap <Right> <NOP>
+" noremap <Up> <NOP>
+" noremap <Down> <NOP>
+" noremap <Left> <NOP>
+" noremap <Right> <NOP>
 
 call minpac#add('k-takata/minpac', {'type': 'opt'})
 call minpac#add('tpope/vim-unimpaired')
