@@ -44,7 +44,7 @@ set numberwidth=4
 set showcmd             " show command in bottom bar
 set cursorline          " highlight current line
 set scrolloff=4
-filetype plugin indent on      " load filetype-specific indent files
+" filetype plugin indent on      " load filetype-specific indent files
 set wildmenu            " visual autocomplete for command menu
 set lazyredraw          " redraw only when we need to.
 set showmatch           " highlight matching [{()}]
@@ -77,6 +77,9 @@ noremap <leader>9 9gt
 " move up and down on visual lines (if a line wraps)
 noremap k gk
 noremap j gj
+
+" yank to system clipboard
+noremap <Leader>Y "+y
 
 nmap 0 ^
 
@@ -143,6 +146,8 @@ call minpac#add('peitalin/vim-jsx-typescript')
 "call minpac#add('andymass/vim-matchup')
 
 let g:vim_markdown_conceal = 0
+let g:vim_markdown_new_list_item_indent = 0
+
 " mappings
 map <C-n> :NERDTreeToggle<CR>
 let NERDTreeShowHidden=1
@@ -196,6 +201,7 @@ augroup configgroup
   autocmd BufEnter *.sh setlocal softtabstop=2
   autocmd Filetype html setlocal ts=2 sts=2 sw=2
   autocmd Filetype javascript setlocal ts=2 sts=2 sw=2
+  autocmd Filetype markdown setlocal ts=2 sts=2 sw=2
 augroup END
 
 
@@ -216,20 +222,22 @@ augroup vimrcEx
   autocmd BufRead,BufNewFile *.md set filetype=markdown
   autocmd BufRead,BufNewFile .{jscs,jshint,eslint}rc set
 
-  augroup pandoc_syntax
-    au! BufNewFile,BufFilePre,BufRead *.md set filetype=markdown.pandoc
-  augroup END
+  " augroup pandoc_syntax
+  "  au! BufNewFile,BufFilePre,BufRead *.md set filetype=markdown.pandoc
+  " augroup END
   "filetype=json
 augroup END
 
 " Autocompletion {{{
 "\ 'coc-ultisnips',
+"\ 'coc-python',
+" :CocUpdate / :CocUpdateSync
 let g:coc_global_extensions = [
       \ 'coc-css',
       \ 'coc-rls',
       \ 'coc-html',
       \ 'coc-json',
-      \ 'coc-python',
+      \ 'coc-pyright',
       \ 'coc-yaml',
       \ 'coc-emoji',
       \ 'coc-tsserver',
@@ -350,10 +358,10 @@ omap af <Plug>(coc-funcobj-a)
 command! -nargs=0 Format :call CocAction('format')
 
 " Use `:Fold` to fold current buffer
-command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+command! -nargs=? Fold :call CocAction('fold', <f-args>)
 
 " use `:OR` for organize import of current buffer
-command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
+command! -nargs=0 OR :call CocAction('runCommand', 'editor.action.organizeImport')
 
 " Add status line support, for integration with other plugin, checkout `:h coc-status`
 set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}

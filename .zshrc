@@ -67,6 +67,11 @@ plugins=(
   z
   ruby
   dotenv
+  common-aliases
+  docker-compose
+  aliases
+  fzf
+  kubectl
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -140,4 +145,4 @@ source ~/.rvm/scripts/rvm
 # add global npm commands
 export PATH=$PATH:$(npm get prefix)/bin
 
-function gam() { "/home/bryan/bin/gam/gam" "$@" ; }
+# function gam() { "/home/bryan/bin/gam/gam" "$@" ; }
