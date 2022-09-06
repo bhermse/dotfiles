@@ -23,8 +23,12 @@ set colorcolumn=+1
 " Open new split panes to right and bottom
 set splitbelow
 set splitright
+autocmd VimResized * :wincmd =
 set autowrite
 :set switchbuf+=usetab,newtab
+" zoom a vim pane, <C-w>= to re-balance
+nnoremap <leader>- :wincmd _<cr>:wincmd \|<cr>
+nnoremap <leader>= :wincmd =<cr>
 colorscheme Tomorrow-Night         " awesome colorscheme elflord pablo
 "colorscheme atom-dark-256         " awesome colorscheme elflord pablo
 "colorscheme deus
@@ -201,7 +205,7 @@ augroup configgroup
   autocmd BufEnter *.sh setlocal softtabstop=2
   autocmd Filetype html setlocal ts=2 sts=2 sw=2
   autocmd Filetype javascript setlocal ts=2 sts=2 sw=2
-  autocmd Filetype markdown setlocal ts=2 sts=2 sw=2
+  autocmd Filetype markdown setlocal ts=2 sts=2 sw=2 tw=0
 augroup END
 
 
