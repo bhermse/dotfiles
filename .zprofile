@@ -18,3 +18,6 @@ eval "$(pyenv init --path)"
 #unset __conda_setup
 # <<< conda initialize <<<
 
+
+# Created by `pipx` on 2022-10-05 14:34:05
+export PATH="$PATH:/home/bryan/.local/bin"
